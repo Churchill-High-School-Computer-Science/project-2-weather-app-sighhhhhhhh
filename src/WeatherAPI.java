@@ -46,11 +46,14 @@ public class WeatherAPI {
     }
 
     // Function to get, format, and return weather data
-    public String parseWeatherData(String blockOfText) {
-
-        //TODO
-
-    }
+    public String parseWeatherData(String jsonText) {
+        JSONObject jsonObject = new JSONObject(jsonText);
+        String city = jsonObject.getString("name");
+        String temperature = jsonObject.getJSONObject("main").getDouble("temp") + "°F";
+        String humidity = jsonObject.getJSONObject("main").getInt("humidity") + "%";
+        String windSpeed = jsonObject.getJSONObject("wind").getDouble("speed") + "mph";
+        return city + "\nWeather in " + city.split(",")[0] + ":\nTemperature: " + temperature + "\nHumidity: " + humidity + "\nWind Speed: " + windSpeed;
+    }    
 
     //Returns the name of the city
     public String getCityName(String blockOfText){
